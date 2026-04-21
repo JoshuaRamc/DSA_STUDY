@@ -1,7 +1,7 @@
 # Day 1: Hashmaps + Arrays Foundation
 
-Date: April 21, 2026  
-Label: day1_hashmaps_arrays  
+Date: April 21, 2026
+Label: day1_hashmaps_arrays
 Focus: Hashmaps, arrays, fast lookup, frequency maps, complement lookup, and the first three LeetCode patterns.
 
 ## Goal For Today
@@ -69,7 +69,7 @@ ages = {
 }
 ```
 
-The key is what you look up.  
+The key is what you look up.
 The value is the information stored at that key.
 
 ```python
@@ -221,7 +221,7 @@ This is average O(1).
 count = counts.get("a", 0)
 ```
 
-If `"a"` exists, this returns `counts["a"]`.  
+If `"a"` exists, this returns `counts["a"]`.
 If `"a"` does not exist, this returns `0`.
 
 ### Count frequency manually
@@ -298,6 +298,56 @@ print(freq)
 # {1: 1, 2: 2, 3: 3}
 ```
 
+Same example with iteration comments:
+
+```python
+nums = [1, 2, 2, 3, 3, 3]
+
+freq = {}
+
+# ITERATION 1
+num = 1
+freq[num] = freq.get(num, 0) + 1
+# freq.get(1, 0) returns 0 because 1 is not in freq yet
+# freq[1] becomes 0 + 1
+# freq is now {1: 1}
+
+# ITERATION 2
+num = 2
+freq[num] = freq.get(num, 0) + 1
+# freq.get(2, 0) returns 0 because 2 is not in freq yet
+# freq[2] becomes 0 + 1
+# freq is now {1: 1, 2: 1}
+
+# ITERATION 3
+num = 2
+freq[num] = freq.get(num, 0) + 1
+# freq.get(2, 0) returns 1 because 2 already appears once
+# freq[2] becomes 1 + 1
+# freq is now {1: 1, 2: 2}
+
+# ITERATION 4
+num = 3
+freq[num] = freq.get(num, 0) + 1
+# freq.get(3, 0) returns 0 because 3 is not in freq yet
+# freq[3] becomes 0 + 1
+# freq is now {1: 1, 2: 2, 3: 1}
+
+# ITERATION 5
+num = 3
+freq[num] = freq.get(num, 0) + 1
+# freq.get(3, 0) returns 1
+# freq[3] becomes 1 + 1
+# freq is now {1: 1, 2: 2, 3: 2}
+
+# ITERATION 6
+num = 3
+freq[num] = freq.get(num, 0) + 1
+# freq.get(3, 0) returns 2
+# freq[3] becomes 2 + 1
+# freq is now {1: 1, 2: 2, 3: 3}
+```
+
 How to think:
 
 - The key is the item.
@@ -322,6 +372,66 @@ for item in items:
     seen.add(item)
 
 return False
+```
+
+Example with loop-focused iteration comments:
+
+```python
+items = [1, 2, 3, 1]
+
+seen = set()
+
+# This for loop visits the list from left to right.
+# Each pass through the loop is one iteration.
+for item in items:
+    # ITERATION 1: item is 1
+    # seen before checking: set()
+    # 1 is not in seen, so do not return yet.
+    # Add 1. seen becomes {1}.
+
+    # ITERATION 2: item is 2
+    # seen before checking: {1}
+    # 2 is not in seen, so do not return yet.
+    # Add 2. seen becomes {1, 2}.
+
+    # ITERATION 3: item is 3
+    # seen before checking: {1, 2}
+    # 3 is not in seen, so do not return yet.
+    # Add 3. seen becomes {1, 2, 3}.
+
+    # ITERATION 4: item is 1
+    # seen before checking: {1, 2, 3}
+    # 1 is already in seen, so return True.
+
+    if item in seen:
+        return True
+
+    seen.add(item)
+
+return False
+```
+
+Important: the comments describe what happens on each pass, but the real code is only these lines:
+
+```python
+seen = set()
+
+for item in items:
+    if item in seen:
+        return True
+
+    seen.add(item)
+
+return False
+```
+
+The loop itself changes `item` automatically:
+
+```text
+First pass:  item = 1
+Second pass: item = 2
+Third pass:  item = 3
+Fourth pass: item = 1
 ```
 
 How to think:
@@ -358,6 +468,35 @@ for i, num in enumerate(nums):
     seen[num] = i
 ```
 
+Example with iteration comments:
+
+```python
+nums = [2, 7, 11, 15]
+target = 9
+
+seen = {}
+
+# ITERATION 1
+i = 0
+num = 2
+complement = target - num
+# complement = 9 - 2 = 7
+# Is 7 in seen? No.
+seen[num] = i
+# Store 2 at index 0.
+# seen is now {2: 0}
+
+# ITERATION 2
+i = 1
+num = 7
+complement = target - num
+# complement = 9 - 7 = 2
+# Is 2 in seen? Yes.
+# seen[2] is 0.
+return [seen[complement], i]
+# return [0, 1]
+```
+
 How to think:
 
 - At each number, calculate the number that would complete the pair.
@@ -366,14 +505,18 @@ How to think:
 
 ## Problem 1: Two Sum
 
-LeetCode: 1. Two Sum  
-Difficulty: Easy  
-Pattern: Complement lookup  
+LeetCode: 1. Two Sum
+Difficulty: Easy
+Pattern: Complement lookup
 Core structure: Array + hashmap
 
 ### Problem Statement
 
 Given an array of integers `nums` and an integer `target`, return the indexes of the two numbers such that they add up to `target`.
+
+## Status
+
+✅ I COMPLETED TWO SUM SUCCESSFULLY
 
 You may assume:
 
@@ -458,6 +601,47 @@ class Solution:
                 return [seen[complement], i]
 
             seen[num] = i
+```
+
+### Optimized Code With Iteration Comments
+
+This is not how you need to write it on LeetCode. This version is for learning what each loop pass does.
+
+```python
+nums = [2, 7, 11, 15]
+target = 9
+
+seen = {}
+
+# ITERATION 1
+i = 0
+num = nums[i]
+# num = 2
+
+complement = target - num
+# complement = 9 - 2 = 7
+
+if complement in seen:
+    return [seen[complement], i]
+# 7 is not in seen, so this if block does not run.
+
+seen[num] = i
+# seen[2] = 0
+# seen is now {2: 0}
+
+# ITERATION 2
+i = 1
+num = nums[i]
+# num = 7
+
+complement = target - num
+# complement = 9 - 7 = 2
+
+if complement in seen:
+    return [seen[complement], i]
+# 2 is in seen.
+# seen[2] is 0.
+# return [0, 1]
 ```
 
 ### Optimized Walkthrough
@@ -569,10 +753,15 @@ class Solution:
 
 ## Problem 2: Contains Duplicate
 
-LeetCode: 217. Contains Duplicate  
-Difficulty: Easy  
-Pattern: Seen set or frequency map  
+LeetCode: 217. Contains Duplicate
+Difficulty: Easy
+Pattern: Seen set or frequency map
 Core structure: Array + set/hashmap
+
+
+## Status
+
+✅ I COMPLETED TWO SUM SUCCESSFULLY
 
 ### Problem Statement
 
@@ -643,6 +832,57 @@ class Solution:
         return False
 ```
 
+### Optimized Code With Iteration Comments
+
+This version shows the exact state change in the set.
+
+```python
+nums = [1, 2, 3, 1]
+
+seen = set()
+
+# ITERATION 1
+num = nums[0]
+# num = 1
+
+if num in seen:
+    return True
+# 1 is not in seen, so this if block does not run.
+
+seen.add(num)
+# seen is now {1}
+
+# ITERATION 2
+num = nums[1]
+# num = 2
+
+if num in seen:
+    return True
+# 2 is not in seen.
+
+seen.add(num)
+# seen is now {1, 2}
+
+# ITERATION 3
+num = nums[2]
+# num = 3
+
+if num in seen:
+    return True
+# 3 is not in seen.
+
+seen.add(num)
+# seen is now {1, 2, 3}
+
+# ITERATION 4
+num = nums[3]
+# num = 1
+
+if num in seen:
+    return True
+# 1 is in seen, so return True.
+```
+
 ### Walkthrough
 
 Input:
@@ -703,6 +943,29 @@ len(set(nums)) == 3
 return True
 ```
 
+Same example with comments:
+
+```python
+nums = [1, 2, 3, 1]
+
+# Original list length:
+len(nums)
+# 4
+
+# Convert to a set.
+# Sets only keep unique values, so the second 1 disappears.
+set(nums)
+# {1, 2, 3}
+
+# Unique-value length:
+len(set(nums))
+# 3
+
+# If the list length and set length differ, duplicates existed.
+len(nums) != len(set(nums))
+# 4 != 3 -> True
+```
+
 ### Which Version Should You Use In Interviews?
 
 Prefer the explicit loop version while learning.
@@ -757,10 +1020,16 @@ class Solution:
 
 ## Problem 3: Valid Anagram
 
-LeetCode: 242. Valid Anagram  
-Difficulty: Easy  
-Pattern: Frequency map  
+LeetCode: 242. Valid Anagram
+Difficulty: Easy
+Pattern: Frequency map
 Core structure: String + hashmap
+
+
+
+## Status
+
+✅ I COMPLETED TWO SUM SUCCESSFULLY
 
 ### Problem Statement
 
@@ -879,6 +1148,62 @@ class Solution:
         return count_s == count_t
 ```
 
+### Frequency Map Code With Iteration Comments
+
+This version shows exactly how each character changes each map.
+
+```python
+s = "rat"
+t = "car"
+
+count_s = {}
+count_t = {}
+
+# COUNT s
+
+# ITERATION 1
+char = "r"
+count_s[char] = count_s.get(char, 0) + 1
+# count_s.get("r", 0) returns 0
+# count_s is now {'r': 1}
+
+# ITERATION 2
+char = "a"
+count_s[char] = count_s.get(char, 0) + 1
+# count_s.get("a", 0) returns 0
+# count_s is now {'r': 1, 'a': 1}
+
+# ITERATION 3
+char = "t"
+count_s[char] = count_s.get(char, 0) + 1
+# count_s.get("t", 0) returns 0
+# count_s is now {'r': 1, 'a': 1, 't': 1}
+
+# COUNT t
+
+# ITERATION 1
+char = "c"
+count_t[char] = count_t.get(char, 0) + 1
+# count_t.get("c", 0) returns 0
+# count_t is now {'c': 1}
+
+# ITERATION 2
+char = "a"
+count_t[char] = count_t.get(char, 0) + 1
+# count_t.get("a", 0) returns 0
+# count_t is now {'c': 1, 'a': 1}
+
+# ITERATION 3
+char = "r"
+count_t[char] = count_t.get(char, 0) + 1
+# count_t.get("r", 0) returns 0
+# count_t is now {'c': 1, 'a': 1, 'r': 1}
+
+count_s == count_t
+# {'r': 1, 'a': 1, 't': 1} == {'c': 1, 'a': 1, 'r': 1}
+# False
+```
+
 ### Frequency Map Walkthrough
 
 Input:
@@ -925,7 +1250,7 @@ Why: the maps store counts for distinct characters. `k` is the number of unique 
 
 For interview simplicity, say:
 
-Time: O(n)  
+Time: O(n)
 Space: O(1) if only lowercase English letters, otherwise O(n)
 
 ### Frequency Map Code: One Map
@@ -958,6 +1283,65 @@ class Solution:
                 return False
 
         return True
+```
+
+Same algorithm with iteration comments:
+
+```python
+s = "aacc"
+t = "ccac"
+
+counts = {}
+
+# BUILD counts FROM s
+
+# ITERATION 1
+char = "a"
+counts[char] = counts.get(char, 0) + 1
+# counts is now {'a': 1}
+
+# ITERATION 2
+char = "a"
+counts[char] = counts.get(char, 0) + 1
+# counts is now {'a': 2}
+
+# ITERATION 3
+char = "c"
+counts[char] = counts.get(char, 0) + 1
+# counts is now {'a': 2, 'c': 1}
+
+# ITERATION 4
+char = "c"
+counts[char] = counts.get(char, 0) + 1
+# counts is now {'a': 2, 'c': 2}
+
+# SUBTRACT counts USING t
+
+# ITERATION 1
+char = "c"
+# "c" exists in counts.
+counts[char] -= 1
+# counts is now {'a': 2, 'c': 1}
+
+# ITERATION 2
+char = "c"
+# "c" exists in counts.
+counts[char] -= 1
+# counts is now {'a': 2, 'c': 0}
+
+# ITERATION 3
+char = "a"
+# "a" exists in counts.
+counts[char] -= 1
+# counts is now {'a': 1, 'c': 0}
+
+# ITERATION 4
+char = "c"
+# "c" exists in counts.
+counts[char] -= 1
+# counts is now {'a': 1, 'c': -1}
+# counts["c"] is below 0, so t used too many "c" characters.
+return False
 ```
 
 This works because equal-length strings with no missing character and no overused character must have the same character counts.
@@ -1021,6 +1405,80 @@ class Solution:
                 return False
 
         return True
+```
+
+Same array-count idea with comments:
+
+```python
+s = "abca"
+t = "cbaa"
+
+counts = [0] * 26
+# counts[0] tracks "a"
+# counts[1] tracks "b"
+# counts[2] tracks "c"
+
+# COUNT s
+
+# ITERATION 1
+char = "a"
+index = ord(char) - ord("a")
+# index = 0
+counts[index] += 1
+# counts[0] is now 1
+
+# ITERATION 2
+char = "b"
+index = ord(char) - ord("a")
+# index = 1
+counts[index] += 1
+# counts[1] is now 1
+
+# ITERATION 3
+char = "c"
+index = ord(char) - ord("a")
+# index = 2
+counts[index] += 1
+# counts[2] is now 1
+
+# ITERATION 4
+char = "a"
+index = ord(char) - ord("a")
+# index = 0
+counts[index] += 1
+# counts[0] is now 2
+
+# SUBTRACT t
+
+# ITERATION 1
+char = "c"
+index = ord(char) - ord("a")
+# index = 2
+counts[index] -= 1
+# counts[2] is now 0
+
+# ITERATION 2
+char = "b"
+index = ord(char) - ord("a")
+# index = 1
+counts[index] -= 1
+# counts[1] is now 0
+
+# ITERATION 3
+char = "a"
+index = ord(char) - ord("a")
+# index = 0
+counts[index] -= 1
+# counts[0] is now 1
+
+# ITERATION 4
+char = "a"
+index = ord(char) - ord("a")
+# index = 0
+counts[index] -= 1
+# counts[0] is now 0
+
+# All counts are back to 0, so the strings are anagrams.
 ```
 
 How `ord` works:
@@ -1267,7 +1725,7 @@ if x in seen:
     print("found")
 ```
 
-For lists, `x in nums` is O(n).  
+For lists, `x in nums` is O(n).
 For sets and dicts, `x in seen` is average O(1).
 
 That difference matters.
