@@ -516,7 +516,8 @@ Given an array of integers `nums` and an integer `target`, return the indexes of
 
 ## Status
 
-✅ I COMPLETED TWO SUM SUCCESSFULLY
+[x] I COMPLETED TWO SUM SUCCESSFULLY
+[x] I COMPLETED GROUP ANAGRAMS SUCCESSFULLY (MEDIUM)
 
 You may assume:
 
@@ -758,10 +759,6 @@ Difficulty: Easy
 Pattern: Seen set or frequency map
 Core structure: Array + set/hashmap
 
-
-## Status
-
-✅ I COMPLETED TWO SUM SUCCESSFULLY
 
 ### Problem Statement
 
@@ -1026,10 +1023,6 @@ Pattern: Frequency map
 Core structure: String + hashmap
 
 
-
-## Status
-
-✅ I COMPLETED TWO SUM SUCCESSFULLY
 
 ### Problem Statement
 
