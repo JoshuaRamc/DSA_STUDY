@@ -730,6 +730,10 @@ Difficulty: Easy
 Pattern: String comparison, prefix shrinking
 Core structure: Array of strings
 
+## Status
+
+[x] I COMPLETED LONGEST COMMON PREFIX SUCCESSFULLY
+
 ### Problem Statement
 
 Write a function to find the longest common prefix string among an array of strings.
@@ -944,6 +948,38 @@ class Solution:
                     return ""
 
         return prefix
+```
+
+### Your Completed Approach
+
+This is the approach you already wrote.
+
+```python
+class Solution(object):
+    def longestCommonPrefix(self, strs):
+        """
+        :type strs: List[str]
+        :rtype: str
+        """
+        longest_prefix = ""
+
+        # iterate through all strings , we can assume 
+
+
+        # ITERAtE THROUGH THE FIRST STRING, DOESNT MATTER
+        for i,char in enumerate(strs[0]):
+            # i is equal to 'f' as in flowers
+            letter_to_check = strs[0][i]
+            valid_to_track = True
+            for string in strs[1:]:
+                if i >= len(string) or string[i] != letter_to_check:
+                    valid_to_track = False
+            if valid_to_track == False:
+                return longest_prefix
+            else:
+                longest_prefix += letter_to_check
+
+        return longest_prefix
 ```
 
 ## Problem 3: Group Anagrams
