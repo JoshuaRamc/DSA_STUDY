@@ -7,3 +7,4 @@ Conceptual study guide for DSA
 - [Day 2: Strings + Hashmaps](day2_strings_hashmaps.md)
 - [Day 3: Sliding Window + Intro To RRK](day3_sliding_window_rrk.md)
 - [Day 4: Two Pointers + System Design Basics](day4_two_pointers_system_design.md)
+- [Day 5: Stack + Observability And Reliability](day5_stack_observability_reliability.md)

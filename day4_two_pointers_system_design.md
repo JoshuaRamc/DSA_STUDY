@@ -159,7 +159,7 @@ Core structure: Array + area calculation
 
 ## Status
 
-[ ] I COMPLETED CONTAINER WITH MOST WATER SUCCESSFULLY
+[X ] COMPLETED CONTAINER WITH MOST WATER SUCCESSFULLY
 
 ### Problem Statement
 
@@ -269,7 +269,7 @@ Core structure: Sorted array + pair search
 
 ## Status
 
-[ ] I COMPLETED TWO SUM II SUCCESSFULLY
+[X ] COMPLETED TWO SUM II SUCCESSFULLY
 
 ### Problem Statement
 
@@ -361,7 +361,7 @@ Core structure: Array + triplet search
 
 ## Status
 
-[ ] I COMPLETED 3SUM FOR EXPOSURE
+[ X] COMPLETED 3SUM FOR EXPOSURE
 
 ### Problem Statement
 
