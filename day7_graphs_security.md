@@ -214,7 +214,7 @@ Core structure: Matrix + visited + connected component counting
 
 ## Status
 
-[ ] COMPLETED NUMBER OF ISLANDS SUCCESSFULLY
+[ X ] COMPLETED NUMBER OF ISLANDS SUCCESSFULLY
 
 ### Problem Statement
 
@@ -340,7 +340,7 @@ Core structure: Node objects + cycle-safe deep copy
 
 ## Status
 
-[ ] COMPLETED CLONE GRAPH SUCCESSFULLY
+[ X ] COMPLETED CLONE GRAPH SUCCESSFULLY
 
 ### Problem Statement
 
